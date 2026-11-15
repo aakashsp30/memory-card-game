@@ -1,6 +1,6 @@
-export function Card({ pkmn, onSendData }) {
+export function Card({ pkmn, onCardClick }) {
   const triggerDataSend = () => {
-    onSendData(pkmn.id);
+    onCardClick(pkmn.id);
   };
 
   return (
