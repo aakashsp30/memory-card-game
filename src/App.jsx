@@ -25,17 +25,18 @@ function App() {
   const [clickedPkmn, setClickedPkmn] = useState([]);
   const [bestScore, setBestScore] = useState(0);
 
+  const hasWon = clickedPkmn.length === pkmnList.length;
+
   const handleCardClick = (pkmnId) => {
+    setPkmnList(shuffle(pkmnList));
     if (!clickedPkmn.includes(pkmnId)) {
       const newClicked = [...clickedPkmn, pkmnId];
       setClickedPkmn(newClicked);
-      setPkmnList(shuffle(pkmnList));
       if (newClicked.length > bestScore) {
         setBestScore(newClicked.length);
       }
     } else {
       setClickedPkmn([]);
-      setPkmnList(shuffle(pkmnList));
     }
   };
 
@@ -43,6 +44,12 @@ function App() {
     <>
       <CardGrid pList={pkmnList} onCardClick={handleCardClick} />
       <ScoreCard score={clickedPkmn.length} bestScore={bestScore} />
+      {hasWon && (
+        <>
+          <p>You Won!</p>
+          <button onClick={() => setClickedPkmn([])}>Play again</button>
+        </>
+      )}
     </>
   );
 }
